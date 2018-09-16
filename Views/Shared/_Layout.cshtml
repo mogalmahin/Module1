@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @model CarPool.Models.UserDetails
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            background-color: #18bdf4;
+            border: 0;
+            font-size: 22px !important;
+            letter-spacing: 4px;
+            border-radius: 0;
+            font-family: Montserrat, sans-serif;
+        }
+
+            .navbar li a, .navbar .navbar-brand {
+                color: black !important;
+            }
+
+        .navbar-nav li a:hover, .navbar-nav li.active a {
+            color: #f4511e !important;
+            background-color: #fff !important;
+        }
+
+        .navbar-default .navbar-toggle {
+            border-color: transparent;
+            color: #fff !important;
+        }
+
+        .navbar-brand {
+            background-color: white;
+        }
+
+        .carousel-inner {
+            background-color: white;
+            width: 100%;
+        }
+	
+        .carousel-caption {
+            right: 10%;
+            bottom: 50%;
+            text-align: right;
+            color: gold;
+            max-width: 300px;
+            left: auto;
+            padding: 5px;
+        }
+
+        .modal-header {
+            color: black;
+            border-color: blue;
+        }
+
+        #about {
+            background-color: white;
+            color: #15299b;
+            text-align: center;
+        }
+
+        #contact {
+            background-color: darkgray;
+            text-align: center;
+        }
+
+        body {
+            background-color: #18bdf4;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+	<nav class="navbar  navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" style="padding-top: 3px;">
+					<img src="~/images/logo.png" width="100" height="40" alt="">
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+
+				<ul class="nav navbar-nav navbar-right" style="padding-right: 5%;">
+					@if (Session["id"] == null)
+					{
+						<li>
+							@Html.ActionLink("Home", "Index", "Home")
+						</li>
+
+						<li>
+							<a href="#" data-toggle="modal" data-target="#login">Login</a>
+						</li>
+						<li>
+							@Html.ActionLink("SignUP", "SignUP", "Home")
+						</li>
+					}
+					<li>
+						<a href="#about">About</a>
+					</li>
+					<li>
+						<a href="#contact">Contact Us</a>
+					</li>
+					@if (Session["id"] != null)
+					{
+
+						<li>
+						
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>	@Html.ActionLink("Edit", "Edit", "Home", new { id = Session["id"] }, null)</li>
+								<li>	@Html.ActionLink("Rides", "Rides", "Home")</li>
+							</ul>
+						</li>
+						<li>
+							@Html.ActionLink("Logout", "Logout", "Home")
+						</li>
+
+						<li>
+							<h3>@Session["id"]</h3>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<center><h4 class="modal-title" id="myModalLabel">Login</h4></center>
+				</div>
+				<div class="modal-body">
+					@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+					{
+						<div class="form-group">
+							<label for="userid">User Id:</label>
+							@Html.TextBoxFor(m => m.VAMID, new { @class = "form-control", required = "required" })
+						</div>
+						@*<div class="form-group">
+								<label for="pwd">Password:</label>
+								<input type="password" class="form-control" id="pwd">
+							</div>*@
+
+						<div class="form-group">
+							<label for="userid"> Password:</label>
+							@Html.PasswordFor(m => m.Password, new { @class = "form-control", required = "required" })
+						</div>
+						<center> <input type="submit" class="btn btn-default" value="Login"></center>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		@RenderBody()
+		<hr />
+		<footer>
+			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+		</footer>
+	</div>
+
+	@if (ViewBag.login != null)
+	{
+		<script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.login");
+            };
+		</script>
+
+	}
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+</body>
+</html>

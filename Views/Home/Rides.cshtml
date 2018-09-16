@@ -1,0 +1,33 @@
+﻿
+@{
+	ViewBag.Title = "Rides";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/countUp.min.js"></script>
+
+
+<div style="text-align:center;background-color: #cc181e;height:200px;">
+	<h2 style="text-align:left;color: white;padding-top: 25px;">Rides Given</h2>
+	<h1 id="counter" style="color: white;padding-top: 25px;"></h1>
+</div>
+<div style="text-align:center;background-color: #cc181e;height:200px;">
+	<h2 style="text-align:left;color: white;padding-top: 25px;">Rides Taken</h2>
+	<h1 id="counter2" style="color: white;padding-top: 25px;"></h1>
+</div>
+<script type="text/javascript">
+	var options = {
+		  useEasing: true,
+		  useGrouping: true,
+		  separator: ',',
+		  decimal: '.',
+		  prefix: '',
+		  suffix: ''
+	};
+	var demo = new CountUp("counter", 0, 5, 0, 10, options);
+	demo.start();
+	var demo1 = new CountUp("counter2", 0, 20, 0, 10, options);
+	demo1.start();
+</script>
+
+
